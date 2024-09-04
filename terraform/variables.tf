@@ -1,3 +1,4 @@
+# varibles for provider
 variable "neko" {
     description = "Neko Proxmox host endpoint variable"
     type = object({
@@ -14,4 +15,11 @@ variable "neko_auth" {
       api_token = string
     })
     sensitive = true 
+}
+
+# variables for cloud-init and later ansible
+variable "vm_user" {
+    description = "VM Username"
+    type = string
+  
 }
