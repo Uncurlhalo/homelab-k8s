@@ -60,3 +60,22 @@ variable "control_node_count" {
     type = number
     default = 2 
 }
+
+# Variable for count of small, med, large worker nodes
+variable "worker_node_small_count" {
+    description = "Number of small worker nodes"
+    type = number
+    default = 8
+}
+
+variable "worker_node_med_count" {
+    description = "Number of med worker nodes"
+    type = number
+    default = 4
+}
+
+variable "worker_node_large_count" {
+    description = "Number of large worker nodes"
+    type = number
+    default = 2
+}
