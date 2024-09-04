@@ -1,4 +1,4 @@
-# varibles for provider
+# varibles for provider information
 variable "neko" {
     description = "Neko Proxmox host endpoint variable"
     type = object({
@@ -7,7 +7,7 @@ variable "neko" {
       insecure = bool
     })
 }
-
+# Authentication variables for my PVE instance
 variable "neko_auth" {
     description = "Neko Proxmox host authentication variable"
     type = object({
@@ -21,5 +21,37 @@ variable "neko_auth" {
 variable "vm_user" {
     description = "VM Username"
     type = string
-  
 }
+
+variable "vm_password" {
+    description = "VM Password"
+    type = string
+    sensitive = true
+}
+
+variable "host_public_key" {
+    description = "Host SSH public key"
+    type = string  
+}
+
+# Define k8s and cilium version
+variable "k8s-version" {
+  description = "Kubernetes version"
+  type        = string
+}
+
+variable "cilium-cli-version" {
+  description = "Cilium CLI version"
+  type        = string
+}
+
+# Define DNS variable so we can set my local DNS server
+variable "vm_dns" {
+  description = "DNS config for VMs"
+  type        = object({
+    domain  = string
+    servers = list(string)
+  })
+}
+
+# Variable map for multiple control and worker nodes
