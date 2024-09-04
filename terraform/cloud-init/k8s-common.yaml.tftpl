@@ -1,0 +1,23 @@
+users:
+  - name: ${username}
+    passwd: ${password}
+    lock_passwd: false
+    groups: [ adm, lxd, sudo ]
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${pub-key}
+    sudo: ALL=(ALL) NOPASSWD:ALL
+
+hostname: ${hostname}
+package_update: true
+package_upgrade: true
+timezone: America/New_York
+
+packages:
+  - qemu-guest-agent
+
+power_state:
+  delay: now
+  mode: reboot
+  message: Rebooting after cloud-init completion
+  condition: true

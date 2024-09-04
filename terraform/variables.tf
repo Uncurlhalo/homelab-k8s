@@ -31,7 +31,7 @@ variable "vm_password" {
 
 variable "host_public_key" {
     description = "Host SSH public key"
-    type = string  
+    type = string
 }
 
 # Define k8s and cilium version
