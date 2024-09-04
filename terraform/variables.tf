@@ -54,4 +54,9 @@ variable "vm_dns" {
   })
 }
 
-# Variable map for multiple control and worker nodes
+# Variable for the count of control nodes (2)
+variable "control_node_count" {
+    description = "Number of control nodes to create"
+    type = number
+    default = 2 
+}
