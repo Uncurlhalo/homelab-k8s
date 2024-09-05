@@ -4,25 +4,25 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-small" {
   node_name = var.neko.node_name
 
   # count of number of workers
-  count = var.worker_node_small_count
+  count = var.worker_node_small_spec.count
 
   # Start of actual resrouces for vm
   name        = "k8s-worker-small-${count.index}"
-  description = "Kubernetes Small Worker 0${count.index}"
+  description = format("Kubernetes Small Worker %02d", count.index)
   on_boot     = true
-  vm_id       = "800${count.index}"
+  vm_id       = format("80%02d", count.index)
 
   machine       = "q35"
   scsi_hardware = "virtio-scsi-pci"
   bios          = "ovmf"
 
   cpu {
-    cores = 4
+    cores = var.worker_node_small_spec.cores
     type  = "host"
   }
 
   memory {
-    dedicated = 8192
+    dedicated = var.worker_node_small_spec.memory
   }
 
   network_device {
@@ -91,7 +91,7 @@ output "worker_small_ipv4_address" {
 }
 
 resource "local_file" "worker_small_ips" {
-  content         = proxmox_virtual_environment_vm.k8s-worker-small[*].ipv4_addresses[1][0]
+  content         = join("\n", proxmox_virtual_environment_vm.k8s-worker-small[*].ipv4_addresses[1][0])
   filename        = "output/worker_small_ips.txt"
   file_permission = "0644"
 }

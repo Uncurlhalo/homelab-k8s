@@ -44,27 +44,68 @@ variable "vm_dns" {
 }
 
 # Variable for the count of control nodes (2)
-variable "control_node_count" {
-    description = "Number of control nodes to create"
-    type = number
-    default = 2 
+variable "control_node_spec" {
+    description = "Details of control plane (count and vm specs)"
+    type = object({
+      name = string
+      count = number
+      cores = number
+      memory = number
+    })
+
+    default = {
+      name = "control"
+      count = 2
+      cores = 4
+      memory = 4096
+    }
 }
 
 # Variable for count of small, med, large worker nodes
-variable "worker_node_small_count" {
-    description = "Number of small worker nodes"
-    type = number
-    default = 8
+variable "worker_node_small_spec" {
+    description = "Details of small workers (count and vm specs)"
+    type = object({
+      name = string
+      count = number
+      cores = number
+      memory = number
+    })
+    default = {
+      name = "small"
+      count = 8
+      cores = 4
+      memory = 8192
+    }
 }
 
-variable "worker_node_med_count" {
-    description = "Number of med worker nodes"
-    type = number
-    default = 4
+variable "worker_node_med_spec" {
+    description = "Details of med workers (count and vm specs)"
+    type = object({
+      name = string
+      count = number
+      cores = number
+      memory = number
+    })
+    default = {
+      name = "small"
+      count = 4
+      cores = 8
+      memory = 16384
+    }
 }
 
-variable "worker_node_large_count" {
-    description = "Number of large worker nodes"
-    type = number
-    default = 2
+variable "worker_node_large_spec" {
+    description = "Details of large workers (count and vm specs)"
+    type = object({
+      name = string
+      count = number
+      cores = number
+      memory = number
+    })
+    default = {
+      name = "large"
+      count = 2
+      cores = 16
+      memory = 32768
+    }
 }
