@@ -57,7 +57,7 @@ variable "control_node_spec" {
       name = "control"
       count = 2
       cores = 4
-      memory = 4096
+      memory = 8192
     }
 }
 

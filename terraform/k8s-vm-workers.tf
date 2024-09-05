@@ -12,6 +12,8 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-small" {
   on_boot     = true
   vm_id       = format("80%02d", count.index)
 
+  tags        = ["k8s", "worker"]
+
   machine       = "q35"
   scsi_hardware = "virtio-scsi-pci"
   bios          = "ovmf"
@@ -98,6 +100,8 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-medium" {
   description = format("Kubernetes Medium Worker %02d", count.index)
   on_boot     = true
   vm_id       = format("81%02d", count.index)
+
+  tags        = ["k8s", "worker"]
 
   machine       = "q35"
   scsi_hardware = "virtio-scsi-pci"
@@ -186,6 +190,8 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-large" {
   on_boot     = true
   vm_id       = format("82%02d", count.index)
 
+  tags        = ["k8s", "worker"]
+  
   machine       = "q35"
   scsi_hardware = "virtio-scsi-pci"
   bios          = "ovmf"
