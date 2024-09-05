@@ -61,7 +61,7 @@ variable "control_node_spec" {
     }
 }
 
-# Variable for count of small, med, large worker nodes
+# Variable for specs of small, med, large worker nodes
 variable "worker_node_small_spec" {
     description = "Details of small workers (count and vm specs)"
     type = object({
@@ -78,7 +78,7 @@ variable "worker_node_small_spec" {
     }
 }
 
-variable "worker_node_med_spec" {
+variable "worker_node_medium_spec" {
     description = "Details of med workers (count and vm specs)"
     type = object({
       name = string
