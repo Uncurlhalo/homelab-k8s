@@ -17,12 +17,12 @@ resource "proxmox_virtual_environment_file" "cloud-init" {
   datastore_id = "local"
 
   source_raw {
-    data = templatefile("./cloud-init/k8s-user-data.yaml.tftpl", {
+    data = templatefile("./cloud-init/k8s-control-plane.yaml.tftpl", {
       username    = var.vm_user
       password    = var.vm_password
       pub-key     = var.host_public_key
     })
-
+    
     file_name = "cloud-init-k8s.yaml"
   }
 }

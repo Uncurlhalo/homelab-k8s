@@ -85,17 +85,6 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-small" {
   }
 }
 
-output "worker_small_ipv4_address" {
-  depends_on = [proxmox_virtual_environment_vm.k8s-worker-small]
-  value      = proxmox_virtual_environment_vm.k8s-worker-small[*].ipv4_addresses[1][0]
-}
-
-resource "local_file" "worker_small_ips" {
-  content         = join("\n", proxmox_virtual_environment_vm.k8s-worker-small[*].ipv4_addresses[1][0])
-  filename        = "output/worker_small_ips.txt"
-  file_permission = "0644"
-}
-
 # Medium workers next
 resource "proxmox_virtual_environment_vm" "k8s-worker-medium" {
   provider  = proxmox.neko
@@ -183,17 +172,6 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-medium" {
   }
 }
 
-output "worker_medium_ipv4_address" {
-  depends_on = [proxmox_virtual_environment_vm.k8s-worker-medium]
-  value      = proxmox_virtual_environment_vm.k8s-worker-medium[*].ipv4_addresses[1][0]
-}
-
-resource "local_file" "worker_medium_ips" {
-  content         = join("\n", proxmox_virtual_environment_vm.k8s-worker-medium[*].ipv4_addresses[1][0])
-  filename        = "output/worker_medium_ips.txt"
-  file_permission = "0644"
-}
-
 # Large workers last
 resource "proxmox_virtual_environment_vm" "k8s-worker-large" {
   provider  = proxmox.neko
@@ -279,6 +257,29 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-large" {
     datastore_id      = "local"
     user_data_file_id = proxmox_virtual_environment_file.cloud-init.id
   }
+}
+
+# Consolidate outputs and files
+output "worker_small_ipv4_address" {
+  depends_on = [proxmox_virtual_environment_vm.k8s-worker-small]
+  value      = proxmox_virtual_environment_vm.k8s-worker-small[*].ipv4_addresses[1][0]
+}
+
+resource "local_file" "worker_small_ips" {
+  content         = join("\n", proxmox_virtual_environment_vm.k8s-worker-small[*].ipv4_addresses[1][0])
+  filename        = "output/worker_small_ips.txt"
+  file_permission = "0644"
+}
+
+output "worker_medium_ipv4_address" {
+  depends_on = [proxmox_virtual_environment_vm.k8s-worker-medium]
+  value      = proxmox_virtual_environment_vm.k8s-worker-medium[*].ipv4_addresses[1][0]
+}
+
+resource "local_file" "worker_medium_ips" {
+  content         = join("\n", proxmox_virtual_environment_vm.k8s-worker-medium[*].ipv4_addresses[1][0])
+  filename        = "output/worker_medium_ips.txt"
+  file_permission = "0644"
 }
 
 output "worker_large_ipv4_address" {
