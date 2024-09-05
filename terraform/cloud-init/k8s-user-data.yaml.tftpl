@@ -14,9 +14,20 @@ timezone: America/New_York
 
 packages:
   - qemu-guest-agent
+  - net-tools
+  - curl
+  - gpg
+  - open-iscsi
+  - ca-certificates
+  - apt-transport-https
+
 
 power_state:
   delay: now
   mode: reboot
   message: Rebooting after cloud-init completion
   condition: true
+
+  runcmd:
+  - systemctl enable qemu-guest-agent
+  - localectl set-locale LANG=en_US.UTF-8
