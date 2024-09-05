@@ -1,4 +1,4 @@
-resource "pve_vm_image" "debian_12_generic_image" {
+resource "proxmox_virtual_environment_download_file" "debian_12_generic_image" {
   provider           = proxmox.neko
   node_name          = var.neko.node_name
   content_type       = "iso"
@@ -10,25 +10,19 @@ resource "pve_vm_image" "debian_12_generic_image" {
   checksum_algorithm = "sha512"
 }
 
-resource "proxmox_virtual_environment_file" "cloud-init-ctrl" {
+resource "proxmox_virtual_environment_file" "cloud-init" {
   provider     = proxmox.neko
   node_name    = var.neko.node_name
   content_type = "snippets"
   datastore_id = "local"
 
   source_raw {
-    data = templatefile("./cloud-init/k8s-control-plane.yaml.tftpl", {
-      common-config = templatefile("./cloud-init/k8s-common.yaml.tftpl", {
-        hostname    = ""
-        username    = var.vm_user
-        password    = var.vm_password
-        pub-key     = var.host_pub-key
-        k8s-version = var.k8s-version
-      })
-      username           = var.vm_user
-      cilium-cli-version = var.cilium-cli-version
-      cilium-cli-cmd     = "HOME=/home/${var.vm_user} KUBECONFIG=/etc/kubernetes/admin.conf cilium install --set kubeProxyReplacement=true"
+    data = templatefile("./cloud-init/k8s-user-data.yaml.tftpl", {
+      username    = var.vm_user
+      password    = var.vm_password
+      pub-key     = var.host_public_key
     })
-    file_name = "cloud-init-k8s-ctrl.yaml"
+
+    file_name = "cloud-init-k8s.yaml"
   }
 }

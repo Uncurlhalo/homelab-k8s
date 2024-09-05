@@ -11,7 +11,7 @@ variable "neko" {
 variable "neko_auth" {
     description = "Neko Proxmox host authentication variable"
     type = object({
-      usernam = string
+      username = string
       api_token = string
     })
     sensitive = true 
@@ -32,17 +32,6 @@ variable "vm_password" {
 variable "host_public_key" {
     description = "Host SSH public key"
     type = string
-}
-
-# Define k8s and cilium version
-variable "k8s-version" {
-  description = "Kubernetes version"
-  type        = string
-}
-
-variable "cilium-cli-version" {
-  description = "Cilium CLI version"
-  type        = string
 }
 
 # Define DNS variable so we can set my local DNS server
