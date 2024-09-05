@@ -12,7 +12,7 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-small" {
   on_boot     = true
   vm_id       = format("80%02d", count.index)
 
-  tags        = ["k8s", "worker"]
+  tags = ["k8s", "worker"]
 
   machine       = "q35"
   scsi_hardware = "virtio-scsi-pci"
@@ -32,7 +32,7 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-small" {
   }
 
   efi_disk {
-    datastore_id = "local-lvm"
+    datastore_id = "lvm-iscsi"
     file_format  = "raw"
     type         = "4m"
   }
@@ -45,6 +45,7 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-small" {
   disk {
     datastore_id = "local-lvm"
     file_id      = proxmox_virtual_environment_download_file.debian_12_generic_image.id
+    file_format  = "raw"
     interface    = "scsi0"
     cache        = "none"
     backup       = "false"
@@ -53,6 +54,7 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-small" {
 
   disk {
     datastore_id = "iscsi-lvm"
+    file_format  = "raw"
     interface    = "scsi1"
     cache        = "none"
     backup       = "false"
@@ -77,8 +79,7 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-small" {
     }
     ip_config {
       ipv4 {
-        address = format("192.168.1.1%02d", count.index + 1)
-        gateway = "192.168.1.1"
+        address = "dhcp"
       }
     }
 
@@ -101,7 +102,7 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-medium" {
   on_boot     = true
   vm_id       = format("81%02d", count.index)
 
-  tags        = ["k8s", "worker"]
+  tags = ["k8s", "worker"]
 
   machine       = "q35"
   scsi_hardware = "virtio-scsi-pci"
@@ -135,14 +136,16 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-medium" {
     datastore_id = "local-lvm"
     file_id      = proxmox_virtual_environment_download_file.debian_12_generic_image.id
     interface    = "scsi0"
+    file_format  = "raw"
     cache        = "none"
     backup       = "false"
     size         = 25
   }
 
   disk {
-    datastore_id = "iscsi-lvm"
+    datastore_id = "lvm-iscsi"
     interface    = "scsi1"
+    file_format  = "raw"
     cache        = "none"
     backup       = "false"
     size         = 50
@@ -166,8 +169,7 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-medium" {
     }
     ip_config {
       ipv4 {
-        address = format("192.168.1.1%02d", count.index + 11)
-        gateway = "192.168.1.1"
+        address = "dhcp"
       }
     }
 
@@ -190,8 +192,8 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-large" {
   on_boot     = true
   vm_id       = format("82%02d", count.index)
 
-  tags        = ["k8s", "worker"]
-  
+  tags = ["k8s", "worker"]
+
   machine       = "q35"
   scsi_hardware = "virtio-scsi-pci"
   bios          = "ovmf"
@@ -224,14 +226,16 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-large" {
     datastore_id = "local-lvm"
     file_id      = proxmox_virtual_environment_download_file.debian_12_generic_image.id
     interface    = "scsi0"
+    file_format  = "raw"
     cache        = "none"
     backup       = "false"
     size         = 25
   }
 
   disk {
-    datastore_id = "iscsi-lvm"
+    datastore_id = "lvm-iscsi"
     interface    = "scsi1"
+    file_format  = "raw"
     cache        = "none"
     backup       = "false"
     size         = 50
@@ -255,8 +259,7 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-large" {
     }
     ip_config {
       ipv4 {
-        address = format("192.168.1.1%02d", count.index + 21)
-        gateway = "192.168.1.1"
+        address = "dhcp"
       }
     }
 

@@ -55,7 +55,7 @@ variable "control_node_spec" {
 
     default = {
       name = "control"
-      count = 2
+      count = 1
       cores = 4
       memory = 8192
     }
@@ -72,7 +72,7 @@ variable "worker_node_small_spec" {
     })
     default = {
       name = "small"
-      count = 8
+      count = 1
       cores = 4
       memory = 8192
     }
@@ -87,8 +87,8 @@ variable "worker_node_medium_spec" {
       memory = number
     })
     default = {
-      name = "small"
-      count = 4
+      name = "medium"
+      count = 1
       cores = 8
       memory = 16384
     }
@@ -104,7 +104,7 @@ variable "worker_node_large_spec" {
     })
     default = {
       name = "large"
-      count = 2
+      count = 1
       cores = 16
       memory = 32768
     }

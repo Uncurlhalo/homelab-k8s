@@ -6,12 +6,12 @@ resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
   count = var.control_node_spec.count
 
   # Start of actual resrouces for vm
-  name          = "k8s-control-${count.index}"
-  description   = format("Kubernetes Control Plane %02d", count.index)
-  on_boot       = true
-  vm_id         = format("90%02d", count.index)
+  name        = "k8s-control-${count.index}"
+  description = format("Kubernetes Control Plane %02d", count.index)
+  on_boot     = true
+  vm_id       = format("90%02d", count.index)
 
-  tags        = ["k8s", "control-plane"]
+  tags = ["k8s", "control-plane"]
 
   machine       = "q35"
   scsi_hardware = "virtio-scsi-pci"
@@ -45,13 +45,15 @@ resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
     datastore_id = "local-lvm"
     file_id      = proxmox_virtual_environment_download_file.debian_12_generic_image.id
     interface    = "scsi0"
+    file_format  = "raw"
     cache        = "none"
     backup       = "false"
     size         = 25
   }
   disk {
-    datastore_id = "iscsi-lvm"
+    datastore_id = "lvm-iscsi"
     interface    = "scsi1"
+    file_format  = "raw"
     cache        = "none"
     backup       = "false"
     size         = 50
@@ -75,8 +77,7 @@ resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
     }
     ip_config {
       ipv4 {
-        address = format("192.168.1.2%02d", count.index + 1)
-        gateway = "192.168.1.1"
+        address = "dhcp"
       }
     }
     datastore_id      = "local"
