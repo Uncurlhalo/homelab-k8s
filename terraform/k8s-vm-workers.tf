@@ -52,14 +52,14 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-small" {
     size         = 25
   }
 
-  disk {
-    datastore_id = "iscsi-lvm"
-    file_format  = "raw"
-    interface    = "scsi1"
-    cache        = "none"
-    backup       = "false"
-    size         = 50
-  }
+  #disk {
+  #  datastore_id = "iscsi-lvm"
+  #  file_format  = "raw"
+  #  interface    = "scsi1"
+  #  cache        = "none"
+  #  backup       = "false"
+  #  size         = 50
+  #}
 
   boot_order = ["scsi0"]
 
@@ -142,14 +142,14 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-medium" {
     size         = 25
   }
 
-  disk {
-    datastore_id = "lvm-iscsi"
-    interface    = "scsi1"
-    file_format  = "raw"
-    cache        = "none"
-    backup       = "false"
-    size         = 50
-  }
+  #disk {
+  #  datastore_id = "lvm-iscsi"
+  #  interface    = "scsi1"
+  #  file_format  = "raw"
+  #  cache        = "none"
+  #  backup       = "false"
+  #  size         = 50
+  #}
 
   boot_order = ["scsi0"]
 
@@ -232,14 +232,14 @@ resource "proxmox_virtual_environment_vm" "k8s-worker-large" {
     size         = 25
   }
 
-  disk {
-    datastore_id = "lvm-iscsi"
-    interface    = "scsi1"
-    file_format  = "raw"
-    cache        = "none"
-    backup       = "false"
-    size         = 50
-  }
+  #disk {
+  #  datastore_id = "lvm-iscsi"
+  #  interface    = "scsi1"
+  #  file_format  = "raw"
+  #  cache        = "none"
+  #  backup       = "false"
+  #  size         = 50
+  #}
 
   boot_order = ["scsi0"]
 
