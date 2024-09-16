@@ -28,6 +28,6 @@ power_state:
   message: Rebooting after cloud-init completion
   condition: true
 
-  runcmd:
+runcmd:
   - systemctl enable qemu-guest-agent
   - localectl set-locale LANG=en_US.UTF-8
