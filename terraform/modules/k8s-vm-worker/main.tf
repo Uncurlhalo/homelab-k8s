@@ -9,16 +9,16 @@ terraform {
 
 # Generic worker VM resource, utilize variables
 resource "proxmox_virtual_environment_vm" "k8s-worker" {
-  node_name = var.neko.node_name
+  node_name = var.node_name
 
   # count of number of workers
-  count = var.worker_node.count
+  count = var.worker_node_spec.count
 
   # Start of actual resrouces for vm
   name        = "k8s-worker-small-${count.index}"
   description = format("Kubernetes Small Worker %02d", count.index)
   on_boot     = true
-  vm_id       = format("80%02d", count.index)
+  vm_id       = format("${var.worker_node_spec.vm_id_prefix}%02d", count.index)
 
   tags = ["k8s", "worker"]
 
@@ -92,12 +92,6 @@ resource "proxmox_virtual_environment_vm" "k8s-worker" {
     }
 
     datastore_id      = "local"
-    user_data_file_id = proxmox_virtual_environment_file.cloud-init.id
+    user_data_file_id = var.cloud_init_id
   }
-}
-
-resource "local_file" "worker_large_ips" {
-  content         = join("\n", proxmox_virtual_environment_vm.k8s-worker-large[*].ipv4_addresses[1][0])
-  filename        = "output/worker_large_ips.txt"
-  file_permission = "0644"
 }

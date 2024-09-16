@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
-  node_name = var.neko.node_name
+  node_name = var.node_name
 
   # count of number of control nodes
   count = var.control_node_spec.count
@@ -17,7 +17,7 @@ resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
   name        = "k8s-control-${count.index}"
   description = format("Kubernetes Control Plane %02d", count.index)
   on_boot     = true
-  vm_id       = format("90%02d", count.index)
+  vm_id       = format("${var.control_node_spec.vm_id_prefix}%02d", count.index)
 
   tags = ["k8s", "control-plane"]
 
@@ -51,21 +51,22 @@ resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
   # things up with kubespray's ansible playbooks
   disk {
     datastore_id = "local-lvm"
-    file_id      = proxmox_virtual_environment_download_file.debian_12_generic_image.id
+    file_id      = var.vm_image_id
     interface    = "scsi0"
     file_format  = "raw"
     cache        = "none"
     backup       = "false"
     size         = 25
   }
-  disk {
-    datastore_id = "lvm-iscsi"
-    interface    = "scsi1"
-    file_format  = "raw"
-    cache        = "none"
-    backup       = "false"
-    size         = 50
-  }
+
+  # disk {
+  #   datastore_id = "lvm-iscsi"
+  #   interface    = "scsi1"
+  #   file_format  = "raw"
+  #   cache        = "none"
+  #   backup       = "false"
+  #   size         = 50
+  # }
 
   boot_order = ["scsi0"]
 
@@ -89,6 +90,12 @@ resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
       }
     }
     datastore_id      = "local"
-    user_data_file_id = proxmox_virtual_environment_file.cloud-init.id
+    user_data_file_id = var.cloud_init_id
   }
+}
+
+resource "local_file" "control_ips" {
+  content         = join("\n", proxmox_virtual_environment_vm.k8s-worker-large[*].ipv4_addresses[1][0])
+  filename        = "output/control_ips.txt"
+  file_permission = "0644"
 }
