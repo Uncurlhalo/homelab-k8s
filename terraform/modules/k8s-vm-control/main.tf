@@ -1,5 +1,13 @@
+terraform {
+  required_providers {
+    proxmox = {
+        source = "bpg/proxmox"
+        version = "0.63.0"
+    }
+  }
+}
+
 resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
-  provider  = proxmox.neko
   node_name = var.neko.node_name
 
   # count of number of control nodes
@@ -83,15 +91,4 @@ resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
     datastore_id      = "local"
     user_data_file_id = proxmox_virtual_environment_file.cloud-init.id
   }
-}
-
-output "control_ipv4_address" {
-  depends_on = [proxmox_virtual_environment_vm.k8s-control-plane]
-  value      = proxmox_virtual_environment_vm.k8s-control-plane[*].ipv4_addresses[1][0]
-}
-
-resource "local_file" "control_plane_ips" {
-  content         = join("\n", proxmox_virtual_environment_vm.k8s-control-plane[*].ipv4_addresses[1][0])
-  filename        = "output/control_plane_ips.txt"
-  file_permission = "0644"
 }
