@@ -21,13 +21,12 @@ packages:
   - ca-certificates
   - apt-transport-https
 
+runcmd:
+  - systemctl enable qemu-guest-agent
+  - localectl set-locale LANG=en_US.UTF-8
 
 power_state:
   delay: now
   mode: reboot
   message: Rebooting after cloud-init completion
   condition: true
-
-runcmd:
-  - systemctl enable qemu-guest-agent
-  - localectl set-locale LANG=en_US.UTF-8
