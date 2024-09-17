@@ -2,6 +2,9 @@
 module "k8s-control-plane" {
   # reference local module
   source = "./modules/k8s-vm-control"
+  providers = {
+    proxmox = proxmox.neko
+  }
 
   # Define our variables
   vm_image_id = proxmox_virtual_environment_download_file.debian_12_generic_image.id

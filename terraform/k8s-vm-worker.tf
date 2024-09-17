@@ -2,6 +2,10 @@
 module "k8s-workers-small" {
   # reference local module
   source = "./modules/k8s-vm-worker"
+  providers = {
+    proxmox = proxmox.neko
+  }
+
 
   # Define our variables
   vm_image_id = proxmox_virtual_environment_download_file.debian_12_generic_image.id
@@ -15,12 +19,15 @@ module "k8s-workers-small" {
     memory       = 4096
     vm_id_prefix = "80"
   }
-  
 }
 
 module "k8s-workers-medium" {
   # reference local module
   source = "./modules/k8s-vm-worker"
+  providers = {
+    proxmox = proxmox.neko
+  }
+
   
   # Define our variables
   vm_image_id = proxmox_virtual_environment_download_file.debian_12_generic_image.id
@@ -39,6 +46,9 @@ module "k8s-workers-medium" {
 module "k8s-workers-large" {
   # reference local module
   source = "./modules/k8s-vm-worker"
+  providers = {
+    proxmox = proxmox.neko
+  }
 
   # Define our variables
   vm_image_id = proxmox_virtual_environment_download_file.debian_12_generic_image.id
