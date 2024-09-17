@@ -27,12 +27,12 @@ resource "proxmox_virtual_environment_vm" "k8s-worker" {
   bios          = "ovmf"
 
   cpu {
-    cores = var.worker_node_small_spec.cores
+    cores = var.worker_node_spec.cores
     type  = "host"
   }
 
   memory {
-    dedicated = var.worker_node_small_spec.memory
+    dedicated = var.worker_node_spec.memory
   }
 
   network_device {
@@ -45,19 +45,15 @@ resource "proxmox_virtual_environment_vm" "k8s-worker" {
     type         = "4m"
   }
 
-  # We are going to have 2 disks, boot-disk from local-lvm, and then 
-  # another larger disc from iscsi-lvm which is a isci LUN exported 
-  # by my TrueNAS server with 2TB of space. This will give the VM's some
-  # extra storage for local files. This will need to be configured when setting
-  # things up with kubespray's ansible playbooks
+ # just a local disk, maybe add a zfs data disk later (no idea about performance)
   disk {
     datastore_id = "local-lvm"
-    file_id      = proxmox_virtual_environment_download_file.debian_12_generic_image.id
+    file_id      = var.vm_image_id
     file_format  = "raw"
     interface    = "scsi0"
     cache        = "none"
     backup       = "false"
-    size         = 25
+    size         = 20
   }
 
   #disk {

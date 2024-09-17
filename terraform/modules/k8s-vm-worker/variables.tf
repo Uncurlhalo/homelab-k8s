@@ -32,3 +32,12 @@ variable "node_name" {
   description = "PVE node to create VM's on"
   type = string  
 }
+
+# Define DNS variable so we can set my local DNS server
+variable "vm_dns" {
+  description = "DNS config for VMs"
+  type = object({
+    domain  = string
+    servers = list(string)
+  })
+}

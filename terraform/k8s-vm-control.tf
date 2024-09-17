@@ -7,6 +7,7 @@ module "k8s-control-plane" {
   vm_image_id = proxmox_virtual_environment_download_file.debian_12_generic_image.id
   cloud_init_id = proxmox_virtual_environment_file.cloud-init.id
   node_name = var.neko.node_name
+  vm_dns = var.vm_dns
   control_node_spec = {
     name         = "control"
     count        = 1
@@ -14,10 +15,4 @@ module "k8s-control-plane" {
     memory       = 8192
     vm_id_prefix = "90"
   }
-}
-
-resource "local_file" "control_ips" {
-  content         = join("\n", proxmox_virtual_environment_vm.k8s-worker-large[*].ipv4_addresses[1][0])
-  filename        = "output/control_ips.txt"
-  file_permission = "0644"
 }
