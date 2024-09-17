@@ -56,7 +56,7 @@ module "k8s-workers-large" {
   node_name     = var.neko.node_name
   vm_dns        = var.vm_dns
   worker_node_spec = {
-    name         = "small"
+    name         = "large"
     count        = 1
     cores        = 16
     memory       = 16384

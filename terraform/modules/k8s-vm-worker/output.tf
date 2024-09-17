@@ -1,4 +1,3 @@
-# Consolidate outputs and files
 output "worker_ipv4_address" {
   depends_on = [proxmox_virtual_environment_vm.k8s-worker]
   value      = proxmox_virtual_environment_vm.k8s-worker[*].ipv4_addresses[1][0]
