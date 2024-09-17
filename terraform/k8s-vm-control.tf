@@ -7,10 +7,10 @@ module "k8s-control-plane" {
   }
 
   # Define our variables
-  vm_image_id = proxmox_virtual_environment_download_file.debian_12_generic_image.id
+  vm_image_id   = proxmox_virtual_environment_download_file.debian_12_generic_image.id
   cloud_init_id = proxmox_virtual_environment_file.cloud-init.id
-  node_name = var.neko.node_name
-  vm_dns = var.vm_dns
+  node_name     = var.neko.node_name
+  vm_dns        = var.vm_dns
   control_node_spec = {
     name         = "control"
     count        = 1

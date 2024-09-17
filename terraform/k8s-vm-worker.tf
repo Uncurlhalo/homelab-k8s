@@ -8,10 +8,10 @@ module "k8s-workers-small" {
 
 
   # Define our variables
-  vm_image_id = proxmox_virtual_environment_download_file.debian_12_generic_image.id
+  vm_image_id   = proxmox_virtual_environment_download_file.debian_12_generic_image.id
   cloud_init_id = proxmox_virtual_environment_file.cloud-init.id
-  node_name = var.neko.node_name
-  vm_dns = var.vm_dns
+  node_name     = var.neko.node_name
+  vm_dns        = var.vm_dns
   worker_node_spec = {
     name         = "small"
     count        = 1
@@ -28,12 +28,12 @@ module "k8s-workers-medium" {
     proxmox = proxmox.neko
   }
 
-  
+
   # Define our variables
-  vm_image_id = proxmox_virtual_environment_download_file.debian_12_generic_image.id
+  vm_image_id   = proxmox_virtual_environment_download_file.debian_12_generic_image.id
   cloud_init_id = proxmox_virtual_environment_file.cloud-init.id
-  node_name = var.neko.node_name
-  vm_dns = var.vm_dns
+  node_name     = var.neko.node_name
+  vm_dns        = var.vm_dns
   worker_node_spec = {
     name         = "medium"
     count        = 1
@@ -51,10 +51,10 @@ module "k8s-workers-large" {
   }
 
   # Define our variables
-  vm_image_id = proxmox_virtual_environment_download_file.debian_12_generic_image.id
+  vm_image_id   = proxmox_virtual_environment_download_file.debian_12_generic_image.id
   cloud_init_id = proxmox_virtual_environment_file.cloud-init.id
-  node_name = var.neko.node_name
-  vm_dns = var.vm_dns
+  node_name     = var.neko.node_name
+  vm_dns        = var.vm_dns
   worker_node_spec = {
     name         = "small"
     count        = 1
