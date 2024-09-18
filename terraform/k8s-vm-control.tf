@@ -17,6 +17,6 @@ module "k8s-control-plane" {
     count        = 1
     cores        = 4
     memory       = 8192
-    vm_id_prefix = "75"
+    vm_id_prefix = "70"
   }
 }

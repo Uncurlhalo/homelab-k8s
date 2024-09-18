@@ -14,7 +14,7 @@ module "k8s-workers-small" {
     count        = 1
     cores        = 4
     memory       = 4096
-    vm_id_prefix = "80"
+    vm_id_prefix = "60"
   }
 }
 
@@ -32,7 +32,7 @@ module "k8s-workers-medium" {
     count        = 1
     cores        = 8
     memory       = 8192
-    vm_id_prefix = "81"
+    vm_id_prefix = "61"
   }
 }
 
@@ -50,6 +50,6 @@ module "k8s-workers-large" {
     count        = 1
     cores        = 16
     memory       = 16384
-    vm_id_prefix = "82"
+    vm_id_prefix = "62"
   }
 }

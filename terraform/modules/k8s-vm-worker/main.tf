@@ -21,6 +21,9 @@ resource "proxmox_vm_qemu" "k8s-worker" {
   tags    = "k8s,worker"
   os_type = "cloud-init"
 
+  # clone my existing template
+  clone = "ubuntu-cloud-init-template"
+  
   # start at boot
   onboot = true
 
