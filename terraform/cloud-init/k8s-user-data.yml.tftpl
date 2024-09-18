@@ -1,8 +1,9 @@
+#cloud-config
 users:
   - name: ${username}
     passwd: ${password}
     lock_passwd: false
-    groups: [ adm, lxd, sudo ]
+    groups:  [ adm, cdrom, dip, plugdev, lxd, sudo ]
     shell: /bin/bash
     ssh_authorized_keys:
       - ${pub-key}
@@ -21,13 +22,12 @@ packages:
   - ca-certificates
   - apt-transport-https
 
-
 power_state:
   delay: now
   mode: reboot
   message: Rebooting after cloud-init completion
   condition: true
 
-  runcmd:
+runcmd:
   - systemctl enable qemu-guest-agent
   - localectl set-locale LANG=en_US.UTF-8
