@@ -6,7 +6,6 @@ module "k8s-workers-small" {
     proxmox = proxmox.neko
   }
 
-
   # Define our variables
   vm_image_id   = proxmox_virtual_environment_download_file.debian_12_generic_image.id
   cloud_init_id = proxmox_virtual_environment_file.cloud-init.id

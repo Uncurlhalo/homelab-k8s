@@ -26,6 +26,14 @@ resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
   scsi_hardware = "virtio-scsi-pci"
   bios          = "ovmf"
 
+  serial_device {
+    device = "socket"
+  }
+
+  vga {
+    type = "serial0"
+  }
+
   cpu {
     cores = var.control_node_spec.cores
     type  = "host"
@@ -83,10 +91,11 @@ resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
     }
     ip_config {
       ipv4 {
-        address = "dhcp"
+        address = "192.168.1.100/24"
+        gateway = "192.168.1.1"
       }
     }
-    datastore_id      = "local"
+    datastore_id      = "local-lvm"
     user_data_file_id = var.cloud_init_id
   }
 }

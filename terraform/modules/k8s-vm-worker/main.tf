@@ -26,6 +26,14 @@ resource "proxmox_virtual_environment_vm" "k8s-worker" {
   scsi_hardware = "virtio-scsi-pci"
   bios          = "ovmf"
 
+  serial_device {
+    device = "socket"
+  }
+
+  vga {
+    type = "serial0"
+  }
+
   cpu {
     cores = var.worker_node_spec.cores
     type  = "host"
@@ -40,7 +48,7 @@ resource "proxmox_virtual_environment_vm" "k8s-worker" {
   }
 
   efi_disk {
-    datastore_id = "lvm-iscsi"
+    datastore_id = "local-lvm"
     file_format  = "raw"
     type         = "4m"
   }
@@ -87,7 +95,7 @@ resource "proxmox_virtual_environment_vm" "k8s-worker" {
       }
     }
 
-    datastore_id      = "local"
+    datastore_id      = "local-lvm"
     user_data_file_id = var.cloud_init_id
   }
 }
