@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     proxmox = {
-        source = "bpg/proxmox"
-        version = "0.63.0"
+      source  = "telmate/proxmox"
+      version = "3.0.1-rc4"
     }
   }
 }
@@ -53,7 +53,7 @@ resource "proxmox_virtual_environment_vm" "k8s-worker" {
     type         = "4m"
   }
 
- # just a local disk, maybe add a zfs data disk later (no idea about performance)
+  # just a local disk, maybe add a zfs data disk later (no idea about performance)
   disk {
     datastore_id = "local-lvm"
     file_id      = var.vm_image_id

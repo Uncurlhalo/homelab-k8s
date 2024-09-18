@@ -1,22 +1,25 @@
 terraform {
   required_providers {
     proxmox = {
-      source  = "bpg/proxmox"
-      version = "0.63.0"
+      source  = "telmate/proxmox"
+      version = "3.0.1-rc4"
     }
   }
 }
 
 provider "proxmox" {
-  alias    = "neko"
-  endpoint = var.neko.endpoint
-  insecure = var.neko.insecure
+  alias           = "neko"
+  pm_api_url      = var.neko.pm_api_url
+  pm_tls_insecure = var.neko.pm_tls_insecure
 
-  api_token = var.neko_auth.api_token
-  ssh {
-    agent    = true
-    username = var.neko_auth.username
-  }
+  pm_api_token_id     = var.neko_auth.pm_api_token_id
+  pm_api_token_secret = var.neko_auth.pm_api_token_secret
 
-  tmp_dir = "/var/tmp"
+  #pm_log_enable = true
+  #pm_log_file   = "terraform-plugin-proxmox.log"
+  #pm_debug      = true
+  #pm_log_levels = {
+  #  _default    = "debug"
+  #  _capturelog = ""
+  #}
 }

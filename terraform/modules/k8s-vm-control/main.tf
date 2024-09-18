@@ -1,101 +1,75 @@
 terraform {
   required_providers {
     proxmox = {
-        source = "bpg/proxmox"
-        version = "0.63.0"
+      source  = "telmate/proxmox"
+      version = "3.0.1-rc4"
     }
   }
 }
 
 # Generic worker VM resource, utilize variables
-resource "proxmox_virtual_environment_vm" "k8s-control-plane" {
-  node_name = var.node_name
-
+resource "proxmox_vm_qemu" "k8s-control-plane" {
   # count of number of control nodes
   count = var.control_node_spec.count
 
   # Start of actual resrouces for vm
   name        = "k8s-control-${count.index}"
-  description = format("Kubernetes Control Plane %02d", count.index)
-  on_boot     = true
-  vm_id       = format("${var.control_node_spec.vm_id_prefix}%02d", count.index)
+  target_node = var.node_name
 
-  tags = ["k8s", "control-plane"]
+  vmid    = format("${var.control_node_spec.vm_id_prefix}%02d", count.index)
+  desc    = format("Kubernetes Control Plane %02d", count.index)
+  tags    = "k8s,control-plane"
+  os_type = "cloud-init"
 
-  machine       = "q35"
-  scsi_hardware = "virtio-scsi-pci"
-  bios          = "ovmf"
+  # clone my existing template
+  clone = "ubuntu-cloud-init-template"
 
-  serial_device {
-    device = "socket"
+  # start at boot
+  onboot = true
+
+  # expect qemu-agent to be enabled and tell it we are booting linux guests
+  agent   = 1
+  qemu_os = "l26"
+  scsihw  = "virtio-scsi-pci"
+
+  # define resources
+  cpu     = "host"
+  cores   = var.control_node_spec.cores
+  sockets = 1
+
+  # define memory
+  memory = var.control_node_spec.memory
+
+  # specify our custom userdata script
+  cicustom = "user:local:snippets/k8s-user-data.yml"
+
+  # create my disks
+  disks {
+    ide {
+      ide2 {
+        cloudinit {
+          storage = "local"
+        }
+      }
+    }
+    scsi {
+      scsi0 {
+        disk {
+          size    = "20G"
+          storage = "local-lvm"
+          format  = "raw"
+          cache   = "none"
+          backup  = false
+        }
+      }
+    }
   }
 
-  vga {
-    type = "serial0"
-  }
-
-  cpu {
-    cores = var.control_node_spec.cores
-    type  = "host"
-  }
-
-  memory {
-    dedicated = var.control_node_spec.memory
-  }
-
-  network_device {
+  # define network interfaces
+  network {
+    model  = "virtio"
     bridge = "vmbr0"
   }
 
-  efi_disk {
-    datastore_id = "local-lvm"
-    file_format  = "raw"
-    type         = "4m"
-  }
-
-  # just a local disk, maybe add a zfs data disk later (no idea about performance)
-  disk {
-    datastore_id = "local-lvm"
-    file_id      = var.vm_image_id
-    interface    = "scsi0"
-    file_format  = "raw"
-    cache        = "none"
-    backup       = "false"
-    size         = 20
-  }
-
-  # disk {
-  #   datastore_id = "lvm-iscsi"
-  #   interface    = "scsi1"
-  #   file_format  = "raw"
-  #   cache        = "none"
-  #   backup       = "false"
-  #   size         = 50
-  # }
-
-  boot_order = ["scsi0"]
-
-  agent {
-    enabled = true
-  }
-
-  operating_system {
-    type = "l26"
-  }
-
-  # Intial configuration details, includes cloud init
-  initialization {
-    dns {
-      domain  = var.vm_dns.domain
-      servers = var.vm_dns.servers
-    }
-    ip_config {
-      ipv4 {
-        address = "192.168.1.100/24"
-        gateway = "192.168.1.1"
-      }
-    }
-    datastore_id      = "local-lvm"
-    user_data_file_id = var.cloud_init_id
-  }
+  ipconfig0 = format("ip=192.168.1.2%02d/24,gw=192.168.1.1", count.index)
 }
