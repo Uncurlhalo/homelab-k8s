@@ -35,7 +35,7 @@ resource "proxmox_vm_qemu" "k8s-worker" {
   sockets = 1
 
   # define memory
-  memory = var.control_node_spec.memory
+  memory = var.worker_node_spec.memory
 
   # specify our custom userdata script
   # this should be a variable. Also i should send a patch for the provider to allow snippet creation
