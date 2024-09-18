@@ -12,8 +12,8 @@ resource "null_resource" "cloud_init_config_upload" {
   connection {
     type     = "ssh"
     host     = var.neko.hostname
-    user     = var.neko_auth.pm_user
-    password = var.neko_auth.pm_password
+    user     = var.pve_ssh.username
+    password = var.pve_ssh.password
   }
 
   provisioner "file" {

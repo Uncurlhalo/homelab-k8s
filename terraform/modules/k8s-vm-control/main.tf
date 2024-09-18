@@ -41,7 +41,7 @@ resource "proxmox_vm_qemu" "k8s-control-plane" {
   memory = var.control_node_spec.memory
 
   # specify our custom userdata script
-  cicustom = "user:local:snippets/k8s-user-data.yml"
+  cicustom = "user=local:snippets/k8s-user-data.yml"
 
   # create my disks
   disks {
@@ -63,6 +63,12 @@ resource "proxmox_vm_qemu" "k8s-control-plane" {
         }
       }
     }
+  }
+
+  # This is mandatory for some reason
+  serial {
+    id = 0
+    type = "socket"
   }
 
   # define network interfaces

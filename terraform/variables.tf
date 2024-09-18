@@ -1,3 +1,12 @@
+# object for proxmox root user to ssh and create snippet file
+variable "pve_ssh" {
+  description = "PVE User with ssh permissions and file system acces"
+  type = object({
+    username = string
+    password = string
+  })
+  sensitive = true
+}
 # varibles for provider information
 variable "neko" {
   description = "Neko Proxmox host endpoint variable"
@@ -36,13 +45,4 @@ variable "vm_password" {
 variable "host_public_key" {
   description = "Host SSH public key"
   type        = string
-}
-
-# Define DNS variable so we can set my local DNS server
-variable "vm_dns" {
-  description = "DNS config for VMs"
-  type = object({
-    domain  = string
-    servers = list(string)
-  })
 }
