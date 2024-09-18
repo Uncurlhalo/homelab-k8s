@@ -67,7 +67,7 @@ resource "proxmox_vm_qemu" "k8s-control-plane" {
 
   # This is mandatory for some reason
   serial {
-    id = 0
+    id   = 0
     type = "socket"
   }
 
@@ -77,5 +77,6 @@ resource "proxmox_vm_qemu" "k8s-control-plane" {
     bridge = "vmbr0"
   }
 
+  # set cloud init networking info, look at providing with cicustom
   ipconfig0 = format("ip=192.168.1.2%02d/24,gw=192.168.1.1", count.index)
 }
