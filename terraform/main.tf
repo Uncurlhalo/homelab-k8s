@@ -9,13 +9,13 @@ terraform {
 
 provider "proxmox" {
   alias     = "neko"
-  endpoint  = var.neko.endpoint
-  api_token = var.neko_auth.api_token
-  insecure  = var.neko.insecure
+  endpoint  = var.pve.endpoint
+  api_token = var.pve_auth.api_token
+  insecure  = var.pve.insecure
 
   ssh {
     agent    = true
-    username = var.neko_auth.username
+    username = var.pve_auth.username
   }
 
   tmp_dir = "/var/tmp"

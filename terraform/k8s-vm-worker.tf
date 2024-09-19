@@ -20,7 +20,7 @@ module "k8s-workers-small" {
   vm_image_id   = proxmox_virtual_environment_download_file.ubuntu_cloud_img.id
   cloud_init_id = proxmox_virtual_environment_file.cloud-init.id
 
-  node_name = var.neko.node_name
+  node_name = var.pve.node_name
   vm_dns    = var.vm_dns
 
   vm_networking_ip_prefix = "21"
@@ -47,7 +47,7 @@ module "k8s-workers-medium" {
   vm_image_id   = proxmox_virtual_environment_download_file.ubuntu_cloud_img.id
   cloud_init_id = proxmox_virtual_environment_file.cloud-init.id
 
-  node_name = var.neko.node_name
+  node_name = var.pve.node_name
   vm_dns    = var.vm_dns
 
   vm_networking_ip_prefix = "22"
@@ -74,7 +74,7 @@ module "k8s-workers-large" {
   vm_image_id   = proxmox_virtual_environment_download_file.ubuntu_cloud_img.id
   cloud_init_id = proxmox_virtual_environment_file.cloud-init.id
 
-  node_name = var.neko.node_name
+  node_name = var.pve.node_name
   vm_dns    = var.vm_dns
 
   vm_networking_ip_prefix = "23"

@@ -1,6 +1,6 @@
 resource "proxmox_virtual_environment_download_file" "ubuntu_cloud_img" {
   provider     = proxmox.neko
-  node_name    = var.neko.node_name
+  node_name    = var.pve.node_name
   content_type = "iso"
   datastore_id = "local"
 
@@ -10,7 +10,7 @@ resource "proxmox_virtual_environment_download_file" "ubuntu_cloud_img" {
 
 resource "proxmox_virtual_environment_file" "cloud-init" {
   provider     = proxmox.neko
-  node_name    = var.neko.node_name
+  node_name    = var.pve.node_name
   content_type = "snippets"
   datastore_id = "local"
 

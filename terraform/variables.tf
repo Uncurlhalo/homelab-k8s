@@ -1,5 +1,5 @@
 # varibles for provider information
-variable "neko" {
+variable "pve" {
   description = "Neko Proxmox host endpoint variable"
   type = object({
     node_name = string
@@ -8,7 +8,7 @@ variable "neko" {
   })
 }
 # Authentication variables for my PVE instance
-variable "neko_auth" {
+variable "pve_auth" {
   description = "Neko Proxmox host authentication variable"
   type = object({
     username  = string
