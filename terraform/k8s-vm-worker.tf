@@ -10,7 +10,7 @@ module "k8s-workers-small" {
   k8s_node_spec = {
     type         = "worker"
     name         = "small"
-    count        = 1
+    count        = var.worker_node_count.small
     cores        = 4
     memory       = 4096
     vm_id_prefix = "51"
@@ -37,7 +37,7 @@ module "k8s-workers-medium" {
   k8s_node_spec = {
     type         = "worker"
     name         = "medium"
-    count        = 1
+    count        = var.worker_node_count.medium
     cores        = 8
     memory       = 8192
     vm_id_prefix = "52"
@@ -64,7 +64,7 @@ module "k8s-workers-large" {
   k8s_node_spec = {
     type         = "worker"
     name         = "large"
-    count        = 1
+    count        = var.worker_node_count.large
     cores        = 16
     memory       = 16384
     vm_id_prefix = "53"

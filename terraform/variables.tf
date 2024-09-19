@@ -1,20 +1,20 @@
 # varibles for provider information
 variable "neko" {
-    description = "Neko Proxmox host endpoint variable"
-    type = object({
-      node_name = string
-      endpoint = string
-      insecure = bool
-    })
+  description = "Neko Proxmox host endpoint variable"
+  type = object({
+    node_name = string
+    endpoint  = string
+    insecure  = bool
+  })
 }
 # Authentication variables for my PVE instance
 variable "neko_auth" {
-    description = "Neko Proxmox host authentication variable"
-    type = object({
-      username = string
-      api_token = string
-    })
-    sensitive = true 
+  description = "Neko Proxmox host authentication variable"
+  type = object({
+    username  = string
+    api_token = string
+  })
+  sensitive = true
 }
 
 # variables for cloud-init and later ansible
@@ -44,20 +44,20 @@ variable "vm_dns" {
 
 variable "control_node_count" {
   description = "Desired number of control nodes"
-  type = number
-  default = 1  
+  type        = number
+  default     = 1
 }
 
 variable "worker_node_count" {
   description = "Desired number of control nodes"
   type = object({
-    small = number
-    medium =number
-    large = number
+    small  = number
+    medium = number
+    large  = number
   })
   default = {
-    small = 1
+    small  = 1
     medium = 1
-    large = 1
+    large  = 1
   }
 }

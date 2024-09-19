@@ -10,7 +10,7 @@ module "k8s-control-plane" {
   k8s_node_spec = {
     type         = "control"
     name         = "plane"
-    count        = 1
+    count        = var.control_node_count
     cores        = 4
     memory       = 8192
     vm_id_prefix = "50"
