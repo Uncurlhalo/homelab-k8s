@@ -41,3 +41,23 @@ variable "vm_dns" {
     servers = list(string)
   })
 }
+
+variable "control_node_count" {
+  description = "Desired number of control nodes"
+  type = number
+  default = 1  
+}
+
+variable "worker_node_count" {
+  description = "Desired number of control nodes"
+  type = object({
+    small = number
+    medium =number
+    large = number
+  })
+  default = {
+    small = 1
+    medium = 1
+    large = 1
+  }
+}
