@@ -1,2 +1,6 @@
 # homelab-k8s
-This repo contains Terraform modules to create a simple multi-control node/multi-worker node Kubernetes cluster. At the moment it simply creates the infrastructure. I plan to automate the configuration with Kubespray down the road. There is currently no documentation but I hope to turn this into a blog post when complete to document my journey which would include more detailed docs. 
+This repo contains the necessary files to created a self hosted k8s-cluster on a Proxmox hypervisor utilizing Terraform and Kubespray. It is under active development and not yet complete. Currently the terraform modules to stand up the VM's for a cluster are functional but as yet have no configuration.
+
+# Requirements
+* Terraform v1.9.5 or greater
+* Ansible + Ansible Galaxy v2.16.10 or greater
