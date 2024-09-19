@@ -46,3 +46,11 @@ variable "host_public_key" {
   description = "Host SSH public key"
   type        = string
 }
+
+variable "vm_dns" {
+  description = "VM DNS details to pass cloud-init"
+  type = object({
+    domain = string
+    servers = list(string)
+  })
+}
