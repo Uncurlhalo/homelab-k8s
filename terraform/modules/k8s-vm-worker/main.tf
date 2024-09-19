@@ -79,5 +79,5 @@ resource "proxmox_vm_qemu" "k8s-worker" {
   }
 
   # set cloud init networking info, look at providing with cicustom
-  ipconfig0 = "dhcp"
+  ipconfig0 = "ip=dhcp"
 }
