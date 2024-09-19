@@ -1,0 +1,12 @@
+[kube_control_plane]
+${control_nodes}
+
+[etcd]
+${control_nodes}
+
+[kube_node]
+${worker_nodes}
+
+[k8s_cluster:children]
+kube_control_plane
+kube_node
