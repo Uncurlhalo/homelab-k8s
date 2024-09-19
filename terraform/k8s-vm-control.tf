@@ -6,6 +6,10 @@ module "k8s-control-plane" {
     proxmox = proxmox.neko
   }
 
+  depends_on = [
+    null_resource.cloud_init_config_upload,
+  ]
+
   # Define our variables
   k8s_node_spec = {
     type         = "control"

@@ -1,2 +1,2 @@
 # homelab-k8s
-Repository for Terraform and Ansible playbooks for configuring my k8s homelab deployment on Proxmox VE
+This repo contains Terraform modules to create a simple multi-control node/multi-worker node Kubernetes cluster. At the moment it simply creates the infrastructure. I plan to automate the configuration with Kubespray down the road. There is currently no documentation but I hope to turn this into a blog post when complete to document my journey which would include more detailed docs. 
