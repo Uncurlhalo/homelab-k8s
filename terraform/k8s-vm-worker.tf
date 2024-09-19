@@ -1,5 +1,7 @@
 # Use modules to reference our 3 worker cluster sizes
 module "k8s-workers-small" {
+  # depned on control nodes completed and large completed
+  depends_on = [module.k8s-control-plane, module.k8s-workers-large, module.k8s-workers-medium]
   # reference local module
   source = "./modules/k8s-vm-node"
   providers = {
@@ -27,6 +29,8 @@ module "k8s-workers-small" {
 }
 
 module "k8s-workers-medium" {
+   # depned on control nodes completed and large completed
+  depends_on = [module.k8s-control-plane, module.k8s-workers-large]
   # reference local module
   source = "./modules/k8s-vm-node"
   providers = {
@@ -54,6 +58,8 @@ module "k8s-workers-medium" {
 }
 
 module "k8s-workers-large" {
+  # depned on control nodes completed
+  depends_on = [module.k8s-control-plane]
   # reference local module
   source = "./modules/k8s-vm-node"
   providers = {
