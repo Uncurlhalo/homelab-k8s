@@ -1,4 +1,4 @@
-k8s-user-data.yml
+output
 .terraform.lock.hcl
 # Local .terraform directories
 **/.terraform/*
