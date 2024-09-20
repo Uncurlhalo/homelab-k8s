@@ -7,7 +7,7 @@ locals {
 resource "local_file" "ansible_inventory" {
   filename = "../ansible//inventory/inventory.ini"
   content = templatefile("./templates/inventory.ini.tftpl", {
-    control_nodes = join("\n", [for host in local.control_nodes : join(" ", [host.hostname, "ansible_host_ssh=${host.ip}", "ansible_connection=ssh"])])
-    worker_nodes  = join("\n", [for host in local.worker_nodes : join(" ", [host.hostname, "ansible_host_ssh=${host.ip}", "ansible_connection=ssh"])])
+    control_nodes = join("\n", [for host in local.control_nodes : join(" ", [host.hostname, "ansible_host=${host.ip}"])])
+    worker_nodes  = join("\n", [for host in local.worker_nodes : join(" ", [host.hostname, "ansible_host=${host.ip}"])])
   })
 }
