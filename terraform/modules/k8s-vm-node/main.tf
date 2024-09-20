@@ -23,7 +23,7 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
   tags = var.k8s_node_spec.tags
 
   machine       = "q35"
-  scsi_hardware = "virtio-scsi-pci"
+  scsi_hardware = "virtio-scsi-single"
   bios          = "ovmf"
 
   serial_device {
@@ -57,18 +57,20 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
   disk {
     datastore_id = "local-lvm"
     file_id      = var.vm_image_id
+    iothread     = true
     file_format  = "raw"
     interface    = "scsi0"
-    cache        = "none"
+    cache        = "writeback"
     backup       = "false"
     size         = 20
   }
-
+  #
   #disk {
   #  datastore_id = "iscsi-lvm"
   #  file_format  = "raw"
+  #  iothread = true
   #  interface    = "scsi1"
-  #  cache        = "none"
+  #  cache        = "writeback"
   #  backup       = "false"
   #  size         = 50
   #}
