@@ -15,7 +15,7 @@ module "k8s-control-plane" {
     count        = var.control_node_count
     cores        = 4
     memory       = 8192
-    vm_id_prefix = "50"
+    vm_id_prefix = "30"
     tags         = ["k8s", "control"]
   }
 

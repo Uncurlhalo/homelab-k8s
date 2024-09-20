@@ -1,10 +1,10 @@
 ---
 # Kubernetes dashboard
 # RBAC required. see docs/getting-started.md for access details.
-dashboard_enabled: true
+# dashboard_enabled: false
 
 # Helm deployment
-helm_enabled: true
+helm_enabled: false
 
 # Registry deployment
 registry_enabled: false
@@ -13,10 +13,10 @@ registry_enabled: false
 # registry_disk_size: "10Gi"
 
 # Metrics Server deployment
-metrics_server_enabled: true
-metrics_server_container_port: 10250
+metrics_server_enabled: false
+# metrics_server_container_port: 10250
 # metrics_server_kubelet_insecure_tls: true
-metrics_server_metric_resolution: 15s
+# metrics_server_metric_resolution: 15s
 # metrics_server_kubelet_preferred_address_types: "InternalIP,ExternalIP,Hostname"
 # metrics_server_host_network: false
 # metrics_server_replicas: 1
@@ -108,7 +108,7 @@ ingress_nginx_enabled: false
 #   example.io/loadbalancerIPs: 1.2.3.4
 # ingress_nginx_service_nodeport_http: 30080
 # ingress_nginx_service_nodeport_https: 30081
-# ingress_publish_status_address: ""
+ingress_publish_status_address: ""
 # ingress_nginx_nodeselector:
 #   kubernetes.io/os: "linux"
 # ingress_nginx_tolerations:
@@ -142,7 +142,7 @@ ingress_alb_enabled: false
 # alb_ingress_aws_debug: "false"
 
 # Cert manager deployment
-# cert_manager_enabled: true
+cert_manager_enabled: false
 # cert_manager_namespace: "cert-manager"
 # cert_manager_tolerations:
 #   - key: node-role.kubernetes.io/control-plane
@@ -177,9 +177,9 @@ ingress_alb_enabled: false
 #   - "--dns01-recursive-nameservers=1.1.1.1:53,8.8.8.8:53"
 
 # MetalLB deployment
-# metallb_enabled: true
-# metallb_speaker_enabled: "{{ metallb_enabled }}"
-# metallb_namespace: "metallb-system"
+metallb_enabled: false
+metallb_speaker_enabled: "{{ metallb_enabled }}"
+metallb_namespace: "metallb-system"
 # metallb_version: v0.13.9
 # metallb_protocol: "layer2"
 # metallb_port: "7472"
@@ -197,7 +197,7 @@ ingress_alb_enabled: false
 #     nodeselector:
 #       kubernetes.io/os: "linux"
 #     tolerations:
-#      - key: "node-role.kubernetes.io/control-plane"
+#       - key: "node-role.kubernetes.io/control-plane"
 #         operator: "Equal"
 #         value: ""
 #         effect: "NoSchedule"
@@ -205,7 +205,7 @@ ingress_alb_enabled: false
 #     primary:
 #       ip_range:
 #         - 10.5.0.0/16
-#        auto_assign: true
+#       auto_assign: true
 #     pool1:
 #       ip_range:
 #         - 10.6.0.0/16

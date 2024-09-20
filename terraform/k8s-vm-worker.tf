@@ -15,7 +15,7 @@ module "k8s-workers-small" {
     count        = var.worker_node_count.small
     cores        = 4
     memory       = 4096
-    vm_id_prefix = "51"
+    vm_id_prefix = "31"
     tags         = ["k8s", "worker", "small"]
   }
 
@@ -44,7 +44,7 @@ module "k8s-workers-medium" {
     count        = var.worker_node_count.medium
     cores        = 8
     memory       = 8192
-    vm_id_prefix = "52"
+    vm_id_prefix = "32"
     tags         = ["k8s", "worker", "medium"]
   }
 
@@ -73,7 +73,7 @@ module "k8s-workers-large" {
     count        = var.worker_node_count.large
     cores        = 16
     memory       = 16384
-    vm_id_prefix = "53"
+    vm_id_prefix = "33"
     tags         = ["k8s", "worker", "large"]
   }
 
