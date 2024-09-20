@@ -4,3 +4,7 @@ This repo contains the necessary files to created a self hosted k8s-cluster on a
 # Requirements
 * Terraform v1.9.5 or greater
 * Ansible + Ansible Galaxy v2.16.10 or greater
+* python3-jsonschema
+* python3-netaddr
+* python3-jmespath
+* python3-distlib
