@@ -1,4 +1,9 @@
-output
+# notes
+notes.txt
+
+# ansible inventory
+inventory.ini
+
 .terraform.lock.hcl
 # Local .terraform directories
 **/.terraform/*
@@ -17,6 +22,7 @@ crash.*.log
 # to change depending on the environment.
 *.tfvars
 *.tfvars.json
+!example.tfvars
 
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
