@@ -9,6 +9,23 @@ users:
       - ${pub-key}
     sudo: ALL=(ALL) NOPASSWD:ALL
 
+disk_setup:
+  /dev/sdb:
+    table_type: 'mbr'
+    layout:
+      - 100
+    overwrite: true
+
+fs_setup:
+  label: zfs-local-pv
+  filesystem: 'ext4'
+  device: /dev/sdb
+  partition: sdb1
+  overwrite: true
+
+mounts:
+  - ["/dev/sdb1", "/mnt/zfs-local-pv"]
+
 package_update: true
 package_upgrade: true
 timezone: America/New_York

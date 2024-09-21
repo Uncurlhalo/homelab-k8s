@@ -15,8 +15,8 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
   count = var.k8s_node_spec.count
 
   # Start of actual resrouces for vm
-  name        = "k8s-${var.k8s_node_spec.type}-${var.k8s_node_spec.name}-${count.index}"
-  description = format("kubernetes ${var.k8s_node_spec.type} ${var.k8s_node_spec.name} %02d", count.index)
+  name        = "k8s-${var.k8s_node_spec.name}-${count.index}"
+  description = format("kubernetes ${var.k8s_node_spec.name} %d", count.index)
   on_boot     = true
   vm_id       = format("${var.k8s_node_spec.vm_id_prefix}%02d", count.index)
 
@@ -43,8 +43,14 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
     dedicated = var.k8s_node_spec.memory
   }
 
+  # device for "public" IP's (those my router will route)
   network_device {
     bridge = "vmbr0"
+  }
+
+  # device for "private" IP's (host only network with NAT)
+  network_device {
+    bridge = "vmbr1"
   }
 
   efi_disk {
@@ -53,7 +59,7 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
     type         = "4m"
   }
 
-  # just a local disk, maybe add a zfs data disk later (no idea about performance)
+  # Local vm disk
   disk {
     datastore_id = "local-lvm"
     file_id      = var.vm_image_id
@@ -64,16 +70,20 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
     backup       = "false"
     size         = 20
   }
-  #
-  #disk {
-  #  datastore_id = "iscsi-lvm"
-  #  file_format  = "raw"
-  #  iothread = true
-  #  interface    = "scsi1"
-  #  cache        = "writeback"
-  #  backup       = "false"
-  #  size         = 50
-  #}
+
+  # Conditionally create a zfs disk for kubernetes local PV's
+  dynamic "disk" {
+    for_each = (var.zfs_disk == true ? [1] : [])
+    content {
+      datastore_id = "zfs-vm-data"
+      file_format  = "raw"
+      iothread     = true
+      interface    = "scsi1"
+      cache        = "none"
+      backup       = "false"
+      size         = 50
+    }
+  }
 
   boot_order = ["scsi0"]
 
@@ -99,8 +109,14 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
     }
     ip_config {
       ipv4 {
-        address = format("192.168.1.${var.vm_networking_ip_prefix}%d/24", count.index)
+
+        address = format("192.168.1.${var.vm_public_ip_prefix}%d/24", count.index)
         gateway = "192.168.1.1"
+      }
+    }
+    ip_config {
+      ipv4 {
+        address = format("10.0.1.${var.vm_private_ip_prefix}%02d/24", count.index)
       }
     }
 

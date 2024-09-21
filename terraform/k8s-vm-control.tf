@@ -10,8 +10,7 @@ module "k8s-control-plane" {
 
   # Define our variables
   k8s_node_spec = {
-    type         = "control"
-    name         = "plane"
+    name         = "control-plane"
     count        = var.control_node_count
     cores        = 4
     memory       = 8192
@@ -25,5 +24,6 @@ module "k8s-control-plane" {
   node_name = var.pve.node_name
   vm_dns    = var.vm_dns
 
-  vm_networking_ip_prefix = "20"
+  vm_private_ip_prefix = "1"
+  vm_public_ip_prefix  = "20"
 }

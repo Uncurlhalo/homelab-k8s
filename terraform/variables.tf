@@ -16,24 +16,20 @@ variable "pve_auth" {
   })
   sensitive = true
 }
-
 # variables for cloud-init and later ansible
 variable "vm_user" {
   description = "VM Username"
   type        = string
 }
-
 variable "vm_password" {
   description = "VM Password"
   type        = string
   sensitive   = true
 }
-
 variable "host_public_key" {
   description = "Host SSH public key"
   type        = string
 }
-
 variable "vm_dns" {
   description = "VM DNS details to pass cloud-init"
   type = object({
@@ -41,7 +37,6 @@ variable "vm_dns" {
     servers = list(string)
   })
 }
-
 variable "control_node_count" {
   description = "Desired number of control nodes"
   type        = number
@@ -49,15 +44,7 @@ variable "control_node_count" {
 }
 
 variable "worker_node_count" {
-  description = "Desired number of control nodes"
-  type = object({
-    small  = number
-    medium = number
-    large  = number
-  })
-  default = {
-    small  = 1
-    medium = 1
-    large  = 1
-  }
+  description = "Desired number of worker nodes"
+  type        = number
+  default     = 1
 }
