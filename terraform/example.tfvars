@@ -4,6 +4,7 @@ pve = {
   insecure  = false
 }
 
+# you should really not use root
 pve_auth = {
   username  = "root"
   api_token = "root@pam!terraform=my_token"
@@ -20,8 +21,4 @@ vm_dns = {
 }
 
 control_node_count = 3
-worker_node_count = {
-  small  = 8
-  medium = 4
-  large  = 2
-}
+worker_node_count = 3
