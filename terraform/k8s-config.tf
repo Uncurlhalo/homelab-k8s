@@ -4,8 +4,8 @@ resource "proxmox_virtual_environment_download_file" "ubuntu_cloud_img" {
   content_type = "iso"
   datastore_id = "local"
 
-  file_name = vars.linux_image_name
-  url       = vars.linux_image_url
+  file_name = var.linux_image_name
+  url       = var.linux_image_url
 }
 
 resource "proxmox_virtual_environment_file" "cloud-init" {

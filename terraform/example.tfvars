@@ -21,4 +21,4 @@ vm_dns = {
 }
 
 control_node_count = 3
-worker_node_count = 3
+worker_node_count  = 3
