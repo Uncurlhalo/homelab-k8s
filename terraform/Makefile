@@ -10,6 +10,9 @@ init:
 test: fmt-check init
 	terraform validate
 
+plan:
+	terraform init -upgrade && terraform plan
+
 deploy:
 	terraform init -upgrade && terraform apply
 
