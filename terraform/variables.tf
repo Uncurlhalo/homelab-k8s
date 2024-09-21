@@ -42,7 +42,6 @@ variable "control_node_count" {
   type        = number
   default     = 1
 }
-
 variable "worker_node_count" {
   description = "Desired number of worker nodes"
   type        = number
