@@ -23,6 +23,21 @@ packages:
   - apt-transport-https
   - haproxy
 
+write_files:
+  - path: /etc/haproxy/haproxy.cfg
+    content: |
+      frontend k8s-control-plane
+        bind ${lb_ip}:6443
+        mode tcp
+        option tcplog
+        default_backend k8s-control-plane
+
+      backend k8s-control-plane
+        mode tcp
+        balance roundrobin
+        option tcp-check
+        ${control_plane_api_endpoints}
+
 power_state:
   delay: now
   mode: reboot
@@ -31,4 +46,5 @@ power_state:
 
 runcmd:
   - systemctl enable qemu-guest-agent
+  - systemctl enable haproxy
   - localectl set-locale LANG=en_US.UTF-8

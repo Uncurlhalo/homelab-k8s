@@ -1,7 +1,6 @@
 # Use modules to reference our control plane
 module "k8s-api-loadbalancer" {
-  # depend on the config file creations
-  depends_on = [proxmox_virtual_environment_file.cloud-init-haproxy]
+  depends_on = [ module.k8s-cluster-worker ]
   # reference local module
   source = "./modules/haproxy-lb"
   providers = {
@@ -25,5 +24,5 @@ module "k8s-api-loadbalancer" {
   vm_dns    = var.vm_dns
   zfs_disk  = false
 
-  vm_public_ip_prefix = "20"
+  lb_ip = var.lb_pub_ip
 }

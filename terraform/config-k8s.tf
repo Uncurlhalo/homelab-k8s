@@ -11,6 +11,6 @@ resource "proxmox_virtual_environment_file" "cloud-init-k8s" {
       pub-key  = var.host_public_key
     })
 
-    file_name = "cloud-init-k8s.yaml"
+    file_name = "k8s-user-data.yaml"
   }
 }

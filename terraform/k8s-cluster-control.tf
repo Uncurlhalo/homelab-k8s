@@ -1,7 +1,5 @@
 # Use modules to reference our control plane
 module "k8s-cluster-control" {
-  # depend on the config file creations
-  depends_on = [proxmox_virtual_environment_download_file.ubuntu_cloud_img, proxmox_virtual_environment_file.cloud-init-k8s]
   # reference local module
   source = "./modules/k8s-node"
   providers = {

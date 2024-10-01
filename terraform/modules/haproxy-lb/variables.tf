@@ -44,13 +44,12 @@ variable "vm_dns" {
   })
 }
 
-# Define IP prefix for static IPs, not by defining the first 2 numbers it limits us to a max count of 10 ip's
-# this really isnt a great solution but i have a shittry router that can only handle a /24. If i migrate to 
-# something that can handle a /8 i can just use a different address range eg. 10.0.1.(whatever)
-variable "vm_public_ip_prefix" {
-  description = "Last IP octect prefix"
+# this is a full IP, defined so that we can know its IP for configuring HAProxy and the DNS record of the load balancer
+# otherwise I have a circular dependancy issue. This would'nt be so bad if I had proper IPAM
+variable "lb_ip" {
+  description = "LB's public IP address"
   type        = string
-  default     = "20"
+  default     = "0.0.0.0"
 }
 
 # boolean for deciding if we make a zfs disk or not
