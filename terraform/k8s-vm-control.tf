@@ -23,7 +23,8 @@ module "k8s-control-plane" {
 
   node_name = var.pve.node_name
   vm_dns    = var.vm_dns
+  zfs_disk = false
 
   vm_private_ip_prefix = "1"
-  vm_public_ip_prefix  = "20"
+  vm_public_ip_prefix  = "21"
 }

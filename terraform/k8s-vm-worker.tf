@@ -25,6 +25,6 @@ module "k8s-workers" {
   vm_dns    = var.vm_dns
   zfs_disk  = true
 
-  vm_private_ip_prefix = 2
-  vm_public_ip_prefix  = "21"
+  vm_private_ip_prefix = "2"
+  vm_public_ip_prefix  = "22"
 }
