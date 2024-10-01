@@ -11,14 +11,18 @@ pve_auth = {
 
 }
 
-vm_user         = "k8s-node"
-vm_password     = "my_hashed_password"
-host_public_key = "my_rsa_public_key"
+vm_user         = "k8s"
+vm_password     = "<my_hashed_password>"
+host_public_key = "<my_rsa_public_key>"
 
 vm_dns = {
   domain  = "dns.domain"
-  servers = ["192.168.1.3"]
+  servers = ["192.168.1.1"]
 }
 
-control_node_count = 3
-worker_node_count  = 3
+loadbalancer_node_count = 1
+control_node_count      = 3
+worker_node_count       = 3
+
+linux_image_name = "ubuntu-server-noble.img"
+linux_image_url  = "https://cloud-images.ubuntu.com/noble/20240912/noble-server-cloudimg-amd64.img"

@@ -37,6 +37,11 @@ variable "vm_dns" {
     servers = list(string)
   })
 }
+variable "loadbalancer_node_count" {
+  description = "Desired number of HAProxy load balancers"
+  type        = number
+  default     = 1
+}
 variable "control_node_count" {
   description = "Desired number of control nodes"
   type        = number
