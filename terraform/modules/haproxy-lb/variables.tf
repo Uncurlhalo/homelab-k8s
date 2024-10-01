@@ -1,6 +1,6 @@
-# Variable for a k8s node. Defaults are set to a small size worker
-variable "k8s_node_spec" {
-  description = "Details of the k8s node (name, count, and vm specs)"
+# Variable for a ha-proxy load balancer
+variable "ha_proxy_spec" {
+  description = "Details of the Load Balancer VM"
   type = object({
     name         = string
     count        = number
@@ -10,11 +10,11 @@ variable "k8s_node_spec" {
     tags         = list(string)
   })
   default = {
-    name         = "k8s-node"
+    name         = "ha-proxy-lb"
     count        = 1
     cores        = 4
     memory       = 8192
-    vm_id_prefix = "80"
+    vm_id_prefix = "30"
     tags         = ["k8s"]
   }
 }
@@ -31,7 +31,7 @@ variable "vm_image_id" {
 }
 
 variable "node_name" {
-  description = "PVE node to create VM's on"
+  description = "PVE node to create VM on"
   type        = string
 }
 
@@ -47,11 +47,10 @@ variable "vm_dns" {
 # Define IP prefix for static IPs, not by defining the first 2 numbers it limits us to a max count of 10 ip's
 # this really isnt a great solution but i have a shittry router that can only handle a /24. If i migrate to 
 # something that can handle a /8 i can just use a different address range eg. 10.0.1.(whatever)
-# The real solution would be a proper router with some IPAM solution.
 variable "vm_public_ip_prefix" {
   description = "Last IP octect prefix"
   type        = string
-  default     = "21"
+  default     = "20"
 }
 
 # boolean for deciding if we make a zfs disk or not

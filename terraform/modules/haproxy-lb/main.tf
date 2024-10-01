@@ -8,19 +8,19 @@ terraform {
 }
 
 # Generic worker VM resource, utilize variables
-resource "proxmox_virtual_environment_vm" "k8s-node" {
+resource "proxmox_virtual_environment_vm" "haproxy-lb" {
   node_name = var.node_name
 
-  # count of number of workers
-  count = var.k8s_node_spec.count
+  # count of lb's, could support HA down the line, default is 1
+  count = var.ha_proxy_spec.count
 
   # Start of actual resrouces for vm
-  name        = "k8s-${var.k8s_node_spec.name}-${count.index}"
-  description = format("kubernetes ${var.k8s_node_spec.name} %d", count.index)
+  name        = "k8s-${var.ha_proxy_spec.name}-${count.index}"
+  description = format("kubernetes ${var.ha_proxy_spec.name} %d", count.index)
   on_boot     = true
-  vm_id       = format("${var.k8s_node_spec.vm_id_prefix}%02d", count.index)
+  vm_id       = format("${var.ha_proxy_spec.vm_id_prefix}%02d", count.index)
 
-  tags = var.k8s_node_spec.tags
+  tags = var.ha_proxy_spec.tags
 
   machine       = "q35"
   scsi_hardware = "virtio-scsi-single"
@@ -35,12 +35,12 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
   }
 
   cpu {
-    cores = var.k8s_node_spec.cores
+    cores = var.ha_proxy_spec.cores
     type  = "host"
   }
 
   memory {
-    dedicated = var.k8s_node_spec.memory
+    dedicated = var.ha_proxy_spec.memory
   }
 
   # device for "public" IP's (those my router will route)
@@ -104,7 +104,6 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
     }
     ip_config {
       ipv4 {
-
         address = format("192.168.1.${var.vm_public_ip_prefix}%d/24", count.index)
         gateway = "192.168.1.1"
       }
