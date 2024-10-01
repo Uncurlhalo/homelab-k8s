@@ -50,10 +50,8 @@ variable "worker_node_count" {
 variable "linux_image_name" {
   description = "Name of the linux image you want to use. (must be .img)"
   type        = string
-  sensitive   = true
 }
 variable "linux_image_url" {
   description = "Url to the linux image you want to use"
   type        = string
-  sensitive   = true
 }
