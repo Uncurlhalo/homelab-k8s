@@ -3,7 +3,7 @@ module "k8s-workers" {
   # depned on control nodes completed and large completed
   depends_on = [module.k8s-control-plane]
   # reference local module
-  source = "./modules/k8s-vm-node"
+  source = "./modules/k8s-node"
   providers = {
     proxmox = proxmox.neko
   }
@@ -14,7 +14,7 @@ module "k8s-workers" {
     count        = var.worker_node_count
     cores        = 4
     memory       = 4096
-    vm_id_prefix = "31"
+    vm_id_prefix = "32"
     tags         = ["k8s", "worker"]
   }
 

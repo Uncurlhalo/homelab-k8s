@@ -3,7 +3,7 @@ module "k8s-control-plane" {
   # depend on the config file creations
   depends_on = [proxmox_virtual_environment_download_file.ubuntu_cloud_img, proxmox_virtual_environment_file.cloud-init]
   # reference local module
-  source = "./modules/k8s-vm-node"
+  source = "./modules/k8s-node"
   providers = {
     proxmox = proxmox.neko
   }
@@ -14,7 +14,7 @@ module "k8s-control-plane" {
     count        = var.control_node_count
     cores        = 4
     memory       = 8192
-    vm_id_prefix = "30"
+    vm_id_prefix = "31"
     tags         = ["k8s", "control"]
   }
 
@@ -23,7 +23,7 @@ module "k8s-control-plane" {
 
   node_name = var.pve.node_name
   vm_dns    = var.vm_dns
-  zfs_disk = false
+  zfs_disk  = false
 
   vm_private_ip_prefix = "1"
   vm_public_ip_prefix  = "21"
