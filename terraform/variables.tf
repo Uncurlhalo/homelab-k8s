@@ -63,5 +63,5 @@ variable "linux_image_url" {
 variable "lb_pub_ip" {
   description = "Public network IP of the loadbalancer we will create"
   type        = string
-  default     = "0.0.0.0"
+  default     = "0.0.0.0/24"
 }

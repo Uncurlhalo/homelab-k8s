@@ -10,7 +10,7 @@ variable "ha_proxy_spec" {
     tags         = list(string)
   })
   default = {
-    name         = "ha-proxy-lb"
+    name         = "haproxy-lb"
     count        = 1
     cores        = 4
     memory       = 8192
@@ -49,7 +49,7 @@ variable "vm_dns" {
 variable "lb_ip" {
   description = "LB's public IP address"
   type        = string
-  default     = "0.0.0.0"
+  default     = "0.0.0.0/24"
 }
 
 # boolean for deciding if we make a zfs disk or not

@@ -1,6 +1,6 @@
 # Use modules to reference our 3 worker cluster sizes
 module "k8s-cluster-worker" {
-  depends_on = [ module.k8s-cluster-control ]
+  depends_on = [module.k8s-cluster-control]
   # reference local module
   source = "./modules/k8s-node"
   providers = {

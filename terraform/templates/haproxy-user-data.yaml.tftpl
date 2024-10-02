@@ -35,8 +35,7 @@ write_files:
       backend k8s-control-plane
         mode tcp
         balance roundrobin
-        option tcp-check
-        ${control_plane_api_endpoints}
+        option tcp-check${control_plane_api_endpoints}
 
 power_state:
   delay: now

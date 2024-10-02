@@ -1,6 +1,6 @@
 # Use modules to reference our control plane
 module "k8s-api-loadbalancer" {
-  depends_on = [ module.k8s-cluster-worker ]
+  depends_on = [module.k8s-cluster-worker]
   # reference local module
   source = "./modules/haproxy-lb"
   providers = {
@@ -9,7 +9,7 @@ module "k8s-api-loadbalancer" {
 
   # Define our variables
   ha_proxy_spec = {
-    name         = "control-plane"
+    name         = "haproxy-lb"
     count        = var.loadbalancer_node_count
     cores        = 4
     memory       = 4096
