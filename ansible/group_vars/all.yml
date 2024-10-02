@@ -11,10 +11,10 @@ bin_dir: /usr/local/bin
 
 
 ## External LB example config
-## apiserver_loadbalancer_domain_name: "elb.some.domain"
-# loadbalancer_apiserver:
-#   address: 1.2.3.4
-#   port: 1234
+apiserver_loadbalancer_domain_name: "k8s-api.melton.network"
+loadbalancer_apiserver:
+  address: 192.168.1.200
+  port: 8383
 
 ## Internal loadbalancers for apiservers
 # loadbalancer_apiserver_localhost: true
@@ -23,10 +23,10 @@ bin_dir: /usr/local/bin
 
 ## Local loadbalancer should use this port
 ## And must be set port 6443
-loadbalancer_apiserver_port: 6443
+#loadbalancer_apiserver_port: 6443
 
 ## If loadbalancer_apiserver_healthcheck_port variable defined, enables proxy liveness check for nginx.
-loadbalancer_apiserver_healthcheck_port: 8081
+#loadbalancer_apiserver_healthcheck_port: 8081
 
 ### OTHER OPTIONAL VARIABLES
 
