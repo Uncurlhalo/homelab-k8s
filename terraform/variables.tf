@@ -63,5 +63,14 @@ variable "linux_image_url" {
 variable "lb_pub_ip" {
   description = "Public network IP of the loadbalancer we will create"
   type        = string
-  default     = "0.0.0.0/24"
+  default     = "0.0.0.0"
+}
+variable "pihole_url" {
+  description = "URL of pi-hole on your newtork"
+  type        = string
+}
+variable "pihole_api_token" {
+  description = "API Token for authing with your pi-hole"
+  type        = string
+  sensitive   = true
 }

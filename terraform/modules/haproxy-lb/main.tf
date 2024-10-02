@@ -104,7 +104,7 @@ resource "proxmox_virtual_environment_vm" "haproxy-lb" {
     }
     ip_config {
       ipv4 {
-        address = var.lb_ip
+        address = "${var.lb_ip}/24"
         gateway = "192.168.1.1"
       }
     }
