@@ -12,7 +12,7 @@ resource "proxmox_virtual_environment_file" "cloud-init-haproxy" {
       pub-key  = var.host_public_key
       lb_ip    = var.lb_pub_ip
       # holy fuck this is a hack, i should not configure this at vm creation. also ew white space
-      control_plane_api_endpoints = join("\n", [for host in local.control_nodes : join(" ", ["        server", "${host.hostname}", "${host.ip_pub}:6443 check"])])
+      control_plane_api_endpoints = join("\n", [for host in local.control_nodes : join(" ", ["        server", "${host.hostname}", "${host.ip_pub}:6443 check check-ssl verify none inter 10000"])])
     })
 
     file_name = "haproxy-user-data.yaml"
