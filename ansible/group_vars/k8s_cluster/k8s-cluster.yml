@@ -33,7 +33,7 @@ kube_owner: kube
 kube_cert_group: kube-cert
 
 # Cluster Loglevel configuration
-kube_log_level: 2
+kube_log_level: 3
 
 # Directory where credentials will be stored
 credentials_dir: "{{ inventory_dir }}/credentials"

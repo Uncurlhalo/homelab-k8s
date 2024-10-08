@@ -1,9 +1,13 @@
+# kubernetes stuff
+artifacts
+credentials
+
 # venv
 .venv
 # notes
 notes.txt
 
-# ansible inventory
+# ansible stuff
 inventory.ini
 
 .terraform.lock.hcl

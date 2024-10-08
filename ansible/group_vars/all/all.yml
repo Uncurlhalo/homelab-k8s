@@ -14,7 +14,7 @@ bin_dir: /usr/local/bin
 ## External LB example config
 apiserver_loadbalancer_domain_name: "k8s-api.melton.network"
 loadbalancer_apiserver:
-  address: 192.168.1.200
+  address: 192.168.2.1
   port: 8383
   
 ## Internal loadbalancers for apiservers

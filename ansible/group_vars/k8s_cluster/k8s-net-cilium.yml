@@ -1,6 +1,6 @@
 ---
 cilium_version: "v1.15.9"
-cilium_pool_cidr: 192.168.3.0/24
+#cilium_pool_cidr: 192.168.3.0/24
 # Log-level
 # cilium_debug: false
 
