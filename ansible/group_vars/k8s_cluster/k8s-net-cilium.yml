@@ -1,6 +1,6 @@
 ---
 cilium_version: "v1.15.9"
-
+cilium_pool_cidr: 192.168.3.0/24
 # Log-level
 # cilium_debug: false
 
@@ -48,11 +48,11 @@ cilium_identity_allocation_mode: crd
 # cilium_loadbalancer_mode: snat
 
 # Optional features
-# cilium_enable_prometheus: false
+cilium_enable_prometheus: true
 # Enable if you want to make use of hostPort mappings
 # cilium_enable_portmap: false
 # Monitor aggregation level (none/low/medium/maximum)
-# cilium_monitor_aggregation: medium
+cilium_monitor_aggregation: medium
 # The monitor aggregation flags determine which TCP flags which, upon the
 # first observation, cause monitor notifications to be generated.
 #
@@ -165,9 +165,9 @@ cilium_hubble_metrics:
   - icmp
   - http
 ### Enable Hubble install
-# cilium_hubble_install: false
+cilium_hubble_install: true
 ### Enable auto generate certs if cilium_hubble_install: true
-# cilium_hubble_tls_generate: false
+cilium_hubble_tls_generate: true
 
 ### Tune cilium_hubble_event_buffer_capacity & cilium_hubble_event_queue_size values to avoid dropping events when hubble is under heavy load
 ### Capacity of Hubble events buffer. The provided value must be one less than an integer power of two and no larger than 65535
@@ -178,7 +178,7 @@ cilium_hubble_metrics:
 
 # IP address management mode for v1.9+.
 # https://docs.cilium.io/en/v1.9/concepts/networking/ipam/
-cilium_ipam_mode: kubernetes
+cilium_ipam_mode: cluster-pool
 
 # Extra arguments for the Cilium agent
 # cilium_agent_custom_args: []
