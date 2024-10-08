@@ -49,7 +49,7 @@ variable "vm_dns" {
 variable "lb_ip" {
   description = "LB's public IP address"
   type        = string
-  default     = "0.0.0.0/24"
+  default     = "0.0.0.0"
 }
 
 # boolean for deciding if we make a zfs disk or not
@@ -57,4 +57,10 @@ variable "zfs_disk" {
   description = "Boolean to check if we want to make ZFS disks"
   type        = bool
   default     = false
+}
+
+variable "vm_public_subnet_cidr" {
+  description = "CIDR to append for IP config passed to proxmox"
+  type        = string
+  default     = "/24"
 }

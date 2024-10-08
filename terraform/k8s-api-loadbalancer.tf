@@ -24,5 +24,6 @@ module "k8s-api-loadbalancer" {
   vm_dns    = var.vm_dns
   zfs_disk  = false
 
-  lb_ip = var.lb_pub_ip
+  lb_ip                 = var.lb_pub_ip
+  vm_public_subnet_cidr = "/20"
 }
