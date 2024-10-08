@@ -15,7 +15,7 @@ resource "local_file" "ansible_inventory" {
 
 resource "local_file" "kubespray_all_group_vars" {
   filename = "../kubespray/inventory/homelab-k8s/group_vars/all/all.yml"
-  content = templatefile("./templates/terraform/templates/kubespray-all.yml.tftpl", {
+  content = templatefile("./templates/kubespray-all.yml.tftpl", {
     lb_ip = var.lb_pub_ip
   })
 }
