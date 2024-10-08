@@ -1,0 +1,48 @@
+#cloud-config
+users:
+  - name: ${username}
+    passwd: ${password}
+    lock_passwd: false
+    groups:  [ adm, cdrom, dip, plugdev, lxd, sudo ]
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${pub-key}
+    sudo: ALL=(ALL) NOPASSWD:ALL
+
+package_update: true
+package_upgrade: true
+timezone: America/New_York
+
+packages:
+  - qemu-guest-agent
+  - net-tools
+  - curl
+  - gpg
+  - open-iscsi
+  - ca-certificates
+  - apt-transport-https
+  - haproxy
+
+write_files:
+  - path: /etc/haproxy/haproxy.cfg
+    content: |
+      listen kubernetes-apiserver-https
+        bind ${lb_ip}:8383
+        mode tcp
+        option log-health-checks
+        timeout client 3h
+        timeout server 3h
+        balance roundrobin
+${control_plane_api_endpoints}
+
+
+power_state:
+  delay: now
+  mode: reboot
+  message: Rebooting after cloud-init completion
+  condition: true
+
+runcmd:
+  - systemctl enable qemu-guest-agent
+  - systemctl enable haproxy
+  - localectl set-locale LANG=en_US.UTF-8

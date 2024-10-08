@@ -10,8 +10,3 @@ ${control_nodes_hosts}
 
 [kube_node]
 ${worker_nodes_hosts}
-
-[k8s_cluster:children]
-kube_node
-kube_control_plane
-calico_rr

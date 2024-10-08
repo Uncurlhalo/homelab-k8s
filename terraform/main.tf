@@ -4,6 +4,9 @@ terraform {
       source  = "bpg/proxmox"
       version = "0.64.0"
     }
+    pihole = {
+      source = "ryanwholey/pihole"
+    }
   }
 }
 
@@ -19,4 +22,10 @@ provider "proxmox" {
   }
 
   tmp_dir = "/var/tmp"
+}
+
+provider "pihole" {
+  url       = var.pihole_url
+  api_token = var.pihole_api_token
+
 }

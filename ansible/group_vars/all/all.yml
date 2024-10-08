@@ -1,4 +1,5 @@
 ---
+loadbalancer_apiserver_localhost: false
 ## Directory where the binaries will be installed
 bin_dir: /usr/local/bin
 
@@ -11,11 +12,11 @@ bin_dir: /usr/local/bin
 
 
 ## External LB example config
-## apiserver_loadbalancer_domain_name: "elb.some.domain"
-# loadbalancer_apiserver:
-#   address: 1.2.3.4
-#   port: 1234
-
+apiserver_loadbalancer_domain_name: "k8s-api.melton.network"
+loadbalancer_apiserver:
+  address: 192.168.2.1
+  port: 8383
+  
 ## Internal loadbalancers for apiservers
 # loadbalancer_apiserver_localhost: true
 # valid options are "nginx" or "haproxy"

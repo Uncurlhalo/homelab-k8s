@@ -48,11 +48,6 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
     bridge = "vmbr0"
   }
 
-  # device for "private" IP's (host only network with NAT)
-  network_device {
-    bridge = "vmbr1"
-  }
-
   efi_disk {
     datastore_id = "local-lvm"
     file_format  = "raw"
@@ -110,13 +105,8 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
     ip_config {
       ipv4 {
 
-        address = format("192.168.1.${var.vm_public_ip_prefix}%d/24", count.index)
+        address = format("192.168.${var.vm_public_ip_subnet}.${var.vm_public_ip_prefix}%02d${var.vm_public_subnet_cidr}", count.index)
         gateway = "192.168.1.1"
-      }
-    }
-    ip_config {
-      ipv4 {
-        address = format("10.0.1.${var.vm_private_ip_prefix}%02d/24", count.index)
       }
     }
 

@@ -37,6 +37,11 @@ variable "vm_dns" {
     servers = list(string)
   })
 }
+variable "loadbalancer_node_count" {
+  description = "Desired number of HAProxy load balancers"
+  type        = number
+  default     = 1
+}
 variable "control_node_count" {
   description = "Desired number of control nodes"
   type        = number
@@ -54,4 +59,18 @@ variable "linux_image_name" {
 variable "linux_image_url" {
   description = "Url to the linux image you want to use"
   type        = string
+}
+variable "lb_pub_ip" {
+  description = "Public network IP of the loadbalancer we will create"
+  type        = string
+  default     = "0.0.0.0"
+}
+variable "pihole_url" {
+  description = "URL of pi-hole on your newtork"
+  type        = string
+}
+variable "pihole_api_token" {
+  description = "API Token for authing with your pi-hole"
+  type        = string
+  sensitive   = true
 }
