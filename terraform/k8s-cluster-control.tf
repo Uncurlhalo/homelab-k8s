@@ -23,5 +23,7 @@ module "k8s-cluster-control" {
   vm_dns    = var.vm_dns
   zfs_disk  = false
 
-  vm_public_ip_prefix = "21"
+  vm_public_ip_subnet   = "2"
+  vm_public_ip_prefix   = "1"
+  vm_public_subnet_cidr = "/20"
 }

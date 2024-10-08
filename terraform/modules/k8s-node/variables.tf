@@ -48,12 +48,21 @@ variable "vm_dns" {
 # this really isnt a great solution but i have a shittry router that can only handle a /24. If i migrate to 
 # something that can handle a /8 i can just use a different address range eg. 10.0.1.(whatever)
 # The real solution would be a proper router with some IPAM solution.
-variable "vm_public_ip_prefix" {
-  description = "Last IP octect prefix"
+variable "vm_public_ip_subnet" {
+  description = "Whcih subnet to use (assuming defining a full /24 out of the 3rd octet)"
   type        = string
-  default     = "21"
+  default     = "2"
 }
-
+variable "vm_public_ip_prefix" {
+  description = "Prefix to use for within the /24 (eg x.x.x.1xx, or x.x.x.2xx)"
+  type        = string
+  default     = "2"
+}
+variable "vm_public_subnet_cidr" {
+  description = "CIDR to append for IP config passed to proxmox"
+  type        = string
+  default     = "24"
+}
 # boolean for deciding if we make a zfs disk or not
 variable "zfs_disk" {
   description = "Boolean to check if we want to make ZFS disks"

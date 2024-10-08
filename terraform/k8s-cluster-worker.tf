@@ -24,5 +24,7 @@ module "k8s-cluster-worker" {
   vm_dns    = var.vm_dns
   zfs_disk  = true
 
-  vm_public_ip_prefix = "22"
+  vm_public_ip_subnet   = "2"
+  vm_public_ip_prefix   = "2"
+  vm_public_subnet_cidr = "/20"
 }

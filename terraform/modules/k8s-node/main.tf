@@ -105,7 +105,7 @@ resource "proxmox_virtual_environment_vm" "k8s-node" {
     ip_config {
       ipv4 {
 
-        address = format("192.168.1.${var.vm_public_ip_prefix}%d/24", count.index)
+        address = format("192.168.${var.vm_public_ip_subnet}.${var.vm_public_ip_prefix}%02d${var.vm_public_subnet_cidr}", count.index)
         gateway = "192.168.1.1"
       }
     }
