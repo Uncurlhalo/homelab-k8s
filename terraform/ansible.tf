@@ -12,3 +12,10 @@ resource "local_file" "ansible_inventory" {
     worker_nodes_hosts  = join("\n", [for host in local.worker_nodes : host.hostname])
   })
 }
+
+resource "local_file" "kubespray_all_group_vars" {
+  filename = "../kubespray/inventory/homelab-k8s/group_vars/all/all.yml"
+  content = templatefile("./templates/terraform/templates/kubespray-all.yml.tftpl", {
+    lb_ip = var.lb_pub_ip
+  })
+}
