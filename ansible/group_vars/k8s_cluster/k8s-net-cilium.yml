@@ -153,7 +153,7 @@ cilium_kube_proxy_replacement: strict
 cilium_enable_hubble: true
 ### Enable Hubble-ui
 ### Installed by default when hubble is enabled. To disable set to false
-# cilium_enable_hubble_ui: "{{ cilium_enable_hubble }}
+cilium_enable_hubble_ui: "{{ cilium_enable_hubble }}"
 ### Enable Hubble Metrics
 cilium_enable_hubble_metrics: true
 cilium_hubble_metrics:
